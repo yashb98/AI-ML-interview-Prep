@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Hard Interview Questions - Business Stream Data Scientist</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+            text-align-last: left;
+        }
+
+        @page {
+            size: A4;
+            margin: 2.5cm 2cm;
+            @top-center { content: string(doctitle); font-size: 9pt; color: #718096; }
+            @bottom-center { content: counter(page); font-size: 9pt; }
+        }
+
+        @page :first {
+            margin: 0;
+            @top-center { content: none; }
+            @bottom-center { content: none; }
+        }
+
+        @page cover { @top-center { content: none; } @bottom-center { content: none; } }
+        @page toc { @top-center { content: none; } @bottom-center { content: none; } }
+
+        body { string-set: doctitle ""; }
+        h1 { string-set: doctitle content(); }
+
+        .cover {
+            width: 210mm;
+            height: 297mm;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            page: cover;
+            page-break-after: always;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #3182ce 100%);
+        }
+
+        .cover-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+            color: white;
+        }
+
+        .cover-title {
+            font-size: 48pt;
+            font-weight: 700;
+            margin-bottom: 0.5cm;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .cover-subtitle {
+            font-size: 24pt;
+            margin-bottom: 2cm;
+            opacity: 0.9;
+        }
+
+        .cover-meta {
+            font-size: 14pt;
+            line-height: 2;
+            opacity: 0.8;
+        }
+
+        .toc-page {
+            page: toc;
+            page-break-after: always;
+        }
+
+        h1 {
+            font-size: 20pt;
+            color: #1a365d;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            page-break-after: avoid;
+        }
+
+        h2 {
+            font-size: 14pt;
+            color: #2c5282;
+            margin-top: 1.2em;
+            margin-bottom: 0.6em;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 12pt;
+            color: #3182ce;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin: 0.5em 0;
+        }
+
+        ul {
+            margin: 0.5em 0;
+            padding-left: 2em;
+        }
+
+        li {
+            margin: 0.3em 0;
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 9pt;
+            background: #f7fafc;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+
+        pre {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 8pt;
+            background: #f7fafc;
+            padding: 1em;
+            border-left: 3px solid #3182ce;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-width: 100%;
+            page-break-inside: avoid;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+            font-size: 10pt;
+            max-width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e0;
+            padding: 0.5em;
+            text-align: left;
+        }
+
+        th {
+            background: #e2e8f0;
+            font-weight: bold;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        .toc {
+            list-style: none;
+            padding: 0;
+        }
+
+        .toc li {
+            margin: 0.5em 0;
+        }
+
+        .toc a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .toc a::after {
+            content: leader('.') target-counter(attr(href url), page);
+        }
+
+        .section {
+            page-break-before: always;
+        }
+
+        .section:first-of-type {
+            page-break-before: auto;
+        }
+
+        figure, img, svg, blockquote {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        a { word-break: break-all; }
+        .katex-display { overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover">
+        <div class="cover-content">
+            <div class="cover-title">100 HARD<br>INTERVIEW QUESTIONS</div>
+            <div class="cover-subtitle">Data Scientist Position</div>
+            <div class="cover-meta">
+                Business Stream - COO Function<br>
+                Band C | Business Intelligence & Data Department<br><br>
+                Prepared for: Yash B.<br>
+                MSc Computer Science
+            </div>
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc-page">
+        <h1>Table of Contents</h1>
+        <p style="color: #718096; font-size: 9pt;">Right-click and select "Update Field" to refresh page numbers</p>
+        <ul class="toc">
+            <li><a href="#part1">Part I: Role Overview & Analysis</a></li>
+            <li><a href="#part2">Part II: SQL & Data Manipulation (13 Questions)</a></li>
+            <li><a href="#part3">Part III: Power BI & Visualization (13 Questions)</a></li>
+            <li><a href="#part4">Part IV: Machine Learning & Statistics (13 Questions)</a></li>
+            <li><a href="#part5">Part V: Business Case Studies (13 Questions)</a></li>
+            <li><a href="#part6">Part VI: Data Architecture (12 Questions)</a></li>
+            <li><a href="#part7">Part VII: Python Programming (12 Questions)</a></li>
+            <li><a href="#part8">Part VIII: Behavioral & Leadership (12 Questions)</a></li>
+            <li><a href="#part9">Part IX: Ambiguous Pressure Tests (12 Questions)</a></li>
+        </ul>
+    </div>
+
+    <!-- Part I -->
+    <div class="section" id="part1">
+        <h1>Part I: Role Overview & Analysis</h1>
+        
+        <h2>The Scrying Ritual - Intelligence Analysis</h2>
+        
+        <h3>A) Role Archetype: Analytics Engineer + Applied Scientist Hybrid</h3>
+        <p>This Band C (Senior) Data Scientist role at Business Stream is NOT a pure ML Engineering position. The JD emphasizes:</p>
+        <ul>
+            <li>Power BI & Visualization (40%) - Your gap area</li>
+            <li>SQL & Data Manipulation (30%) - Your strength</li>
+            <li>Prescriptive Analytics & Business Insights (20%) - Adjacent to your ML background</li>
+            <li>Data Governance & Utilities Domain (10%) - New territory</li>
+        </ul>
+
+        <h3>B) Company Culture Essence</h3>
+        <table>
+            <tr><th>Dimension</th><th>Business Stream Profile</th></tr>
+            <tr><td>Velocity</td><td>"Measure twice, cut once" - regulated utilities move deliberately</td></tr>
+            <tr><td>Driver</td><td>Compliance-driven (OFWAT) + Customer service focused</td></tr>
+            <tr><td>Stage</td><td>Established Enterprise (2000+) - mature processes, governance-heavy</td></tr>
+            <tr><td>Constraints</td><td>Heavy regulation, GDPR, OFWAT reporting, public scrutiny</td></tr>
+        </table>
+
+        <h3>C) The Gap Between Worlds - Ruthless Assessment</h3>
+        <table>
+            <tr><th>Gap</th><th>Severity</th><th>Mitigation Strategy</th></tr>
+            <tr><td>Power BI depth</td><td>HIGH</td><td>Your Tableau skills transfer ~60%; need DAX mastery proof</td></tr>
+            <tr><td>Utilities domain</td><td>MEDIUM</td><td>Retail analytics experience transfers to customer segmentation</td></tr>
+            <tr><td>Time-series forecasting</td><td>MEDIUM</td><td>NOAA project shows capability, but utilities have unique patterns</td></tr>
+            <tr><td>Stakeholder management at scale</td><td>MEDIUM</td><td>Co-op leadership is good, but enterprise is different</td></tr>
+            <tr><td>Regulatory compliance mindset</td><td>MODERATE</td><td>Must demonstrate GDPR/audit trail thinking</td></tr>
+        </table>
+
+        <h3>D) Competitive Moats to Emphasize</h3>
+        <table>
+            <tr><th>Your Unique Strength</th><th>Why It Matters for Business Stream</th></tr>
+            <tr><td>MLOps + Production Systems</td><td>They want to move to prescriptive analytics - you can build the pipelines</td></tr>
+            <tr><td>Cloud Architecture (AWS/GCP)</td><td>Microsoft Fabric is new - your cloud agility is valuable</td></tr>
+            <tr><td>18 Projects in 90 Days</td><td>Demonstrates rapid learning and delivery under pressure</td></tr>
+            <tr><td>FastAPI + Sub-second Latency</td><td>Real-time dashboards and APIs for operational data</td></tr>
+            <tr><td>Retail Analytics Experience</td><td>Customer churn, segmentation, forecasting - directly applicable</td></tr>
+        </table>
+    </div>
+
+    <!-- Part II -->
+    <div class="section" id="part2">
+        <h1>Part II: SQL & Data Manipulation (13 Questions)</h1>
+
+        <h2>Q1: Rolling Consumption Anomaly Detection</h2>
+        <p><strong>Scenario:</strong> Identify customers whose 3-month consumption exceeds 2.5 standard deviations above their 12-month rolling average.</p>
+        <p><strong>Skills Tested:</strong> Window functions, statistical analysis, time-series</p>
+        <pre>WITH MonthlyConsumption AS (
+  SELECT CustomerID, DATE_TRUNC('month', ReadingDate) AS Month, 
+    SUM(Consumption) AS MonthlyTotal
+  FROM MeterReadings 
+  GROUP BY CustomerID, DATE_TRUNC('month', ReadingDate)
+),
+RollingStats AS (
+  SELECT CustomerID, Month, MonthlyTotal,
+    AVG(MonthlyTotal) OVER (PARTITION BY CustomerID ORDER BY Month 
+      ROWS BETWEEN 12 PRECEDING AND 1 PRECEDING) AS RollingAvg,
+    STDDEV(MonthlyTotal) OVER (PARTITION BY CustomerID ORDER BY Month 
+      ROWS BETWEEN 12 PRECEDING AND 1 PRECEDING) AS RollingStdDev
+  FROM MonthlyConsumption
+)
+SELECT CustomerID, Month, MonthlyTotal, RollingAvg, RollingStdDev,
+  (MonthlyTotal - RollingAvg) / NULLIF(RollingStdDev, 0) AS ZScore
+FROM RollingStats
+WHERE ABS((MonthlyTotal - RollingAvg) / NULLIF(RollingStdDev, 0)) > 2.5;</pre>
+
+        <h2>Q2: Recursive CTE for Customer Hierarchy</h2>
+        <p>Build a recursive query to traverse organizational customer hierarchies for consolidated billing.</p>
+        <pre>WITH RECURSIVE CustomerHierarchy AS (
+  SELECT CustomerID, ParentCustomerID, CustomerName, 0 AS Level,
+    CAST(CustomerName AS VARCHAR(500)) AS Path
+  FROM Customers WHERE ParentCustomerID IS NULL
+  UNION ALL
+  SELECT c.CustomerID, c.ParentCustomerID, c.CustomerName, ch.Level + 1,
+    ch.Path + ' > ' + c.CustomerName
+  FROM Customers c
+  INNER JOIN CustomerHierarchy ch ON c.ParentCustomerID = ch.CustomerID
+)
+SELECT * FROM CustomerHierarchy ORDER BY Path;</pre>
+
+        <h2>Q3: Performance Optimization for Large Datasets</h2>
+        <p>Optimize a query processing 50M+ meter readings with proper indexing strategy.</p>
+        <p><strong>Key Optimizations:</strong></p>
+        <ul>
+            <li>Clustered index on (CustomerID, ReadingDate) for range queries</li>
+            <li>Partitioning by year/month for partition elimination</li>
+            <li>Filtered indexes for active vs. inactive meters</li>
+            <li>Columnstore for analytical workloads</li>
+        </ul>
+
+        <h2>Q4: Data Quality Validation Query</h2>
+        <p>Create a comprehensive data quality report identifying anomalies in meter readings.</p>
+        <pre>SELECT 'Negative Consumption' AS IssueType, COUNT(*) AS RecordCount
+FROM MeterReadings WHERE Consumption < 0
+UNION ALL
+SELECT 'Future Reading Date' AS IssueType, COUNT(*)
+FROM MeterReadings WHERE ReadingDate > GETDATE()
+UNION ALL
+SELECT 'Outlier Consumption (>3 std dev)' AS IssueType, COUNT(*)
+FROM MeterReadings 
+WHERE Consumption > (SELECT AVG(Consumption) + 3*STDDEV(Consumption) FROM MeterReadings);</pre>
+
+        <h2>Q5: Customer Segmentation Using SQL</h2>
+        <p>Segment customers into quartiles based on consumption patterns for targeted interventions.</p>
+        <pre>WITH CustomerMetrics AS (
+  SELECT CustomerID, AVG(Consumption) AS AvgConsumption,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY Consumption) AS MedianConsumption
+  FROM MeterReadings GROUP BY CustomerID
+),
+Segmented AS (
+  SELECT *, NTILE(4) OVER (ORDER BY AvgConsumption) AS ConsumptionQuartile,
+    CASE WHEN AvgConsumption > MedianConsumption * 1.5 THEN 'High Variability'
+         WHEN AvgConsumption < MedianConsumption * 0.5 THEN 'Low Usage'
+         ELSE 'Standard' END AS UsagePattern
+  FROM CustomerMetrics
+)
+SELECT * FROM Segmented;</pre>
+
+        <h2>Q6: Leakage Detection Pattern Query</h2>
+        <p>Identify potential leakage through continuous low-flow patterns overnight.</p>
+        <pre>WITH NightReadings AS (
+  SELECT CustomerID, ReadingDate, Consumption,
+    LAG(Consumption) OVER (PARTITION BY CustomerID ORDER BY ReadingDate) AS PrevConsumption
+  FROM MeterReadings WHERE DATEPART(hour, ReadingDate) BETWEEN 0 AND 5
+),
+LeakageCandidates AS (
+  SELECT CustomerID, COUNT(*) AS NightReadingsCount,
+    AVG(Consumption - PrevConsumption) AS AvgNightFlow
+  FROM NightReadings WHERE Consumption > PrevConsumption
+  GROUP BY CustomerID
+  HAVING COUNT(*) > 20 AND AVG(Consumption - PrevConsumption) > 0.1
+)
+SELECT * FROM LeakageCandidates;</pre>
+
+        <h2>Q7: Billing Calculation Edge Cases</h2>
+        <p>Handle prorated billing for mid-cycle meter changes and tariff transitions.</p>
+        <pre>WITH BillingPeriods AS (
+  SELECT CustomerID, BillingStart, BillingEnd,
+    DATEDIFF(day, BillingStart, BillingEnd) AS DaysInPeriod,
+    TariffRate, OpeningRead, ClosingRead
+  FROM BillingCycles
+),
+ProratedBills AS (
+  SELECT CustomerID, (ClosingRead - OpeningRead) * TariffRate * 
+    (DaysInPeriod / 30.0) AS ProratedAmount
+  FROM BillingPeriods
+)
+SELECT * FROM ProratedBills;</pre>
+
+        <h2>Q8: Regulatory Reporting Aggregations</h2>
+        <p>Generate OFWAT-compliant performance reports with required metrics.</p>
+        <p><strong>Key Metrics:</strong></p>
+        <ul>
+            <li>Per Capita Consumption (PCC)</li>
+            <li>Leakage per km of mains</li>
+            <li>Customer minutes lost (supply interruptions)</li>
+            <li>Response times to customer contacts</li>
+        </ul>
+
+        <h2>Q9: Slowly Changing Dimension Handling</h2>
+        <p>Implement Type 2 SCD for customer address changes with effective dates.</p>
+        <pre>MERGE INTO CustomerHistory AS target
+USING (SELECT * FROM CustomerUpdates) AS source
+ON target.CustomerID = source.CustomerID AND target.IsCurrent = 1
+WHEN MATCHED AND (target.Address <> source.Address) THEN
+  UPDATE SET IsCurrent = 0, EndDate = GETDATE()
+WHEN NOT MATCHED THEN
+  INSERT (CustomerID, Address, StartDate, EndDate, IsCurrent)
+  VALUES (source.CustomerID, source.Address, GETDATE(), NULL, 1);</pre>
+
+        <h2>Q10: Complex Multi-Table Joins</h2>
+        <p>Join meter readings, customers, tariffs, and weather data for comprehensive analysis.</p>
+        <pre>SELECT m.CustomerID, c.CustomerName, t.TariffName,
+  m.ReadingDate, m.Consumption, w.Temperature,
+  (m.Consumption * t.UnitRate) AS EstimatedCost
+FROM MeterReadings m
+INNER JOIN Customers c ON m.CustomerID = c.CustomerID
+INNER JOIN Tariffs t ON c.TariffID = t.TariffID
+LEFT JOIN WeatherData w ON CAST(m.ReadingDate AS DATE) = w.Date
+WHERE m.ReadingDate >= '2024-01-01';</pre>
+
+        <h2>Q11: SQL Execution Order Trick Question</h2>
+        <p>What is the logical execution order of SQL query clauses?</p>
+        <p><strong>Answer:</strong> FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT</p>
+        <p><strong>Why this matters:</strong> Column aliases defined in SELECT cannot be used in WHERE but CAN be used in ORDER BY.</p>
+
+        <h2>Q12: Pivot/Unpivot Operations</h2>
+        <p>Transform monthly consumption data from rows to columns for reporting.</p>
+        <pre>SELECT CustomerID, [Jan], [Feb], [Mar], [Apr], [May], [Jun],
+  [Jul], [Aug], [Sep], [Oct], [Nov], [Dec]
+FROM (
+  SELECT CustomerID, DATENAME(month, ReadingDate) AS Month, Consumption
+  FROM MeterReadings
+) AS Source
+PIVOT (
+  SUM(Consumption) FOR Month IN ([Jan], [Feb], [Mar], [Apr], [May], [Jun],
+                                 [Jul], [Aug], [Sep], [Oct], [Nov], [Dec])
+) AS PivotTable;</pre>
+
+        <h2>Q13: FINAL BOSS - Complete ML Feature Engineering Pipeline</h2>
+        <p>Build a comprehensive feature engineering pipeline for leakage prediction model.</p>
+        <p><strong>Features to Engineer:</strong></p>
+        <ul>
+            <li>Rolling statistics (7, 30, 90 day averages)</li>
+            <li>Time-based features (hour, day of week, season)</li>
+            <li>Lag features (consumption at t-1, t-7, t-30)</li>
+            <li>Customer demographics and property characteristics</li>
+            <li>Weather correlations</li>
+            <li>Anomaly scores using z-scores</li>
+        </ul>
+    </div>
+
+    <!-- Part III -->
+    <div class="section" id="part3">
+        <h1>Part III: Power BI & Visualization (13 Questions)</h1>
+
+        <h2>Q1: Advanced DAX - Context Transition</h2>
+        <p>Explain context transition and write a DAX measure for revenue-weighted average consumption.</p>
+        <pre>Revenue Weighted Avg Consumption = 
+VAR RevenueByCustomer =
+  ADDCOLUMNS(
+    VALUES('Dim Customer'[CustomerID]),
+    "@CustomerRevenue", [Total Revenue GBP],
+    "@RevenueWeight", DIVIDE([Total Revenue GBP], [Total Revenue GBP ALL], 0)
+  )
+RETURN SUMX(RevenueByCustomer, [@CustomerConsumption] * [@RevenueWeight])</pre>
+
+        <h2>Q2: Star Schema Design</h2>
+        <p>Design an optimal star schema for a water utility data warehouse.</p>
+        <p><strong>Fact Tables:</strong></p>
+        <ul>
+            <li>FactMeterReadings (grain: individual reading)</li>
+            <li>FactBilling (grain: billing period)</li>
+            <li>FactCustomerInteractions (grain: interaction)</li>
+        </ul>
+        <p><strong>Dimension Tables:</strong></p>
+        <ul>
+            <li>DimCustomer (SCD Type 2 for address changes)</li>
+            <li>DimDate (standard date dimension)</li>
+            <li>DimMeter (meter attributes, installation dates)</li>
+            <li>DimTariff (rate structures)</li>
+            <li>DimGeography (postcode hierarchy)</li>
+        </ul>
+
+        <h2>Q3: Row-Level Security</h2>
+        <p>Implement RLS for multi-tenant utility dashboards where users only see their region's data.</p>
+        <pre>[Region] = USERPRINCIPALNAME() || 
+[Region] = LOOKUPVALUE(
+  UserRegions[Region],
+  UserRegions[Email],
+  USERPRINCIPALNAME()
+)</pre>
+
+        <h2>Q4: Performance Optimization</h2>
+        <p>Optimize a Power BI report handling 50M+ rows of meter data.</p>
+        <p><strong>Strategies:</strong></p>
+        <ul>
+            <li>Use Import mode for historical data, DirectQuery for real-time</li>
+            <li>Implement aggregations at daily/monthly levels</li>
+            <li>Remove unnecessary columns and relationships</li>
+            <li>Use composite models with dual storage modes</li>
+            <li>Optimize DAX: avoid iterator functions on large tables</li>
+        </ul>
+
+        <h2>Q5: Executive Dashboard Design</h2>
+        <p>Design principles for C-suite water utility dashboards.</p>
+        <p><strong>Key Principles:</strong></p>
+        <ul>
+            <li>5-second rule: Key metrics visible immediately</li>
+            <li>Progressive disclosure: Drill from high-level to detail</li>
+            <li>Color consistency: Red = bad/problem, Green = good/target met</li>
+            <li>Mobile-first: Executives check dashboards on phones</li>
+            <li>Action-oriented: Every metric should suggest an action</li>
+        </ul>
+
+        <h2>Q6: Customer Churn Analysis</h2>
+        <p>Build a churn risk visualization with predictive indicators.</p>
+        <pre>Churn Risk Score = 
+VAR AvgConsumption = AVERAGE('FactMeterReadings'[Consumption])
+VAR LastReading = MAX('FactMeterReadings'[ReadingDate])
+VAR DaysSinceReading = DATEDIFF(LastReading, TODAY(), DAY)
+VAR PaymentDelays = CALCULATE(COUNTROWS('FactBilling'), 'FactBilling'[DaysOverdue] > 30)
+RETURN
+  IF(DaysSinceReading > 60, 30, 0) +
+  IF(AvgConsumption < 0.5 * [Historical Avg], 40, 0) +
+  IF(PaymentDelays > 2, 30, 0)</pre>
+
+        <h2>Q7: Leakage Detection Dashboard</h2>
+        <p>Design dashboard components for leakage monitoring.</p>
+        <p><strong>Key Visualizations:</strong></p>
+        <ul>
+            <li>Night flow analysis: Compare 12am-5am consumption patterns</li>
+            <li>Minimum night flow trend: Track lowest overnight readings</li>
+            <li>Pressure vs flow correlation: Identify pressure-independent flow (leakage signature)</li>
+            <li>DMA (District Metered Area) comparison: Benchmark zones</li>
+        </ul>
+
+        <h2>Q8: Regulatory Compliance Reporting</h2>
+        <p>Build OFWAT-compliant performance dashboards.</p>
+        <p><strong>Required Metrics:</strong></p>
+        <ul>
+            <li>Service Incentive Mechanism (SIM) scores</li>
+            <li>Developer Services outcomes</li>
+            <li>Market performance indicators</li>
+            <li>Common Performance Commitments (CPCs)</li>
+        </ul>
+
+        <h2>Q9: Time Intelligence in DAX</h2>
+        <p>Calculate year-over-year consumption growth with proper time intelligence.</p>
+        <pre>YoY Growth % = 
+VAR CurrentYear = [Total Consumption]
+VAR PriorYear = CALCULATE(
+  [Total Consumption],
+  SAMEPERIODLASTYEAR('DimDate'[Date])
+)
+RETURN DIVIDE(CurrentYear - PriorYear, PriorYear, 0)</pre>
+
+        <h2>Q10: Bookmarking and Drill-Through</h2>
+        <p>Implement exploratory analysis features for operational users.</p>
+        <p><strong>Implementation:</strong></p>
+        <ul>
+            <li>Create bookmark buttons for common filter combinations</li>
+            <li>Set up drill-through pages: Customer -> Meter -> Reading Detail</li>
+            <li>Use sync slicers for cross-page filtering</li>
+            <li>Implement tooltip pages for additional context</li>
+        </ul>
+
+        <h2>Q11: Power BI Service Deployment</h2>
+        <p>Governance and deployment best practices.</p>
+        <p><strong>Key Considerations:</strong></p>
+        <ul>
+            <li>Workspace organization: Development, Test, Production</li>
+            <li>Dataset refresh scheduling and failure handling</li>
+            <li>Version control: Git integration for PBIX files</li>
+            <li>Capacity planning: Premium vs Pro licensing decisions</li>
+        </ul>
+
+        <h2>Q12: Python/R Integration</h2>
+        <p>When and how to use Python visuals in Power BI.</p>
+        <p><strong>Use Cases:</strong></p>
+        <ul>
+            <li>Advanced statistical visualizations (violin plots, heatmaps)</li>
+            <li>Custom forecasting models not available in DAX</li>
+        </ul>
+        <p><strong>Limitations:</strong></p>
+        <ul>
+            <li>Performance: Python visuals are slower than native</li>
+            <li>Interactivity: Limited cross-filtering support</li>
+            <li>Deployment: Requires Python runtime on gateway</li>
+        </ul>
+
+        <h2>Q13: Complete CEO Dashboard Design</h2>
+        <p>Design a comprehensive executive dashboard for water utility CEO.</p>
+        <p><strong>Dashboard Components:</strong></p>
+        <ul>
+            <li>KPI Ribbon: Customer satisfaction, leakage rate, financial performance</li>
+            <li>Trend Analysis: 12-month rolling trends with targets</li>
+            <li>OFWAT Performance Matrix: Color-coded compliance status</li>
+            <li>Alert Panel: Red/amber/green status indicators</li>
+            <li>Drill-through: From summary to detailed operational views</li>
+        </ul>
+    </div>
+
+    <!-- Part IV -->
+    <div class="section" id="part4">
+        <h1>Part IV: Machine Learning & Statistics (13 Questions)</h1>
+
+        <h2>Q1: Time Series Forecasting for Water Demand</h2>
+        <p>Design a forecasting model for water demand prediction.</p>
+        <p><strong>Key Considerations:</strong></p>
+        <ul>
+            <li>Multiple seasonalities: Daily, weekly, annual patterns</li>
+            <li>External factors: Temperature, rainfall, public holidays</li>
+            <li>COVID-19 structural breaks: Model regime changes</li>
+        </ul>
+        <pre>SARIMAX Model: Phi_P(B^s)phi_p(B)DELTA^dDELTA_s^D y_t = Theta_Q(B^s)theta_q(B)e_t + SUM beta_i x_{i,t}</pre>
+
+        <h2>Q2: Anomaly Detection for Leakage</h2>
+        <p>Build an anomaly detection system for identifying potential leaks.</p>
+        <p><strong>Approaches:</strong></p>
+        <ul>
+            <li>Statistical: Z-score, IQR-based outlier detection</li>
+            <li>Machine Learning: Isolation Forest, One-Class SVM</li>
+            <li>Deep Learning: LSTM autoencoders for time-series</li>
+        </ul>
+        <p><strong>Trade-offs:</strong></p>
+        <ul>
+            <li>False positive rate vs. detection sensitivity</li>
+            <li>Explainability requirements for field teams</li>
+        </ul>
+
+        <h2>Q3: Customer Churn Prediction</h2>
+        <p>Build a churn prediction model for utility customers.</p>
+        <p><strong>Feature Engineering:</strong></p>
+        <ul>
+            <li>Recency: Days since last meter reading</li>
+            <li>Frequency: Billing/payment patterns</li>
+            <li>Monetary: Payment delays, arrears</li>
+            <li>Engagement: Customer service contacts</li>
+        </ul>
+        <p><strong>Model Selection:</strong></p>
+        <ul>
+            <li>Survival analysis: Cox proportional hazards</li>
+            <li>Classification: XGBoost with temporal validation</li>
+        </ul>
+
+        <h2>Q4: Model Interpretability (SHAP/LIME)</h2>
+        <p>Explain model predictions for regulatory compliance.</p>
+        <pre>Shapley Value Formula: phi_j = SUM_{S subset N\\{j}} |S|!(|N|-|S|-1)!/|N|! [f(S union {j}) - f(S)]</pre>
+        <p><strong>Regulatory Requirements:</strong></p>
+        <ul>
+            <li>Right to explanation (GDPR Article 22)</li>
+            <li>Audit trail for automated decisions</li>
+            <li>Non-discrimination verification</li>
+        </ul>
+
+        <h2>Q5: Experimental Design for A/B Testing</h2>
+        <p>Design an experiment to test a new pricing strategy.</p>
+        <p><strong>Design Elements:</strong></p>
+        <ul>
+            <li>Randomization: Stratified by customer segment</li>
+            <li>Sample size: Power analysis for MDE (Minimum Detectable Effect)</li>
+            <li>Duration: Account for billing cycles and seasonality</li>
+            <li>Success metrics: Revenue, churn, customer satisfaction</li>
+        </ul>
+
+        <h2>Q6: Bayesian vs Frequentist Approaches</h2>
+        <p>When to use Bayesian methods in utility forecasting.</p>
+        <p><strong>Bayesian Advantages:</strong></p>
+        <ul>
+            <li>Incorporate prior knowledge (e.g., seasonal patterns)</li>
+            <li>Uncertainty quantification in predictions</li>
+            <li>Small sample learning</li>
+        </ul>
+        <p><strong>Frequentist Advantages:</strong></p>
+        <ul>
+            <li>Computational efficiency</li>
+            <li>Established regulatory acceptance</li>
+        </ul>
+
+        <h2>Q7: Bias-Variance Tradeoff</h2>
+        <p>Apply bias-variance decomposition to utility models.</p>
+        <pre>MSE = Bias^2 + Variance + Irreducible Error</pre>
+        <p><strong>Utility Context:</strong></p>
+        <ul>
+            <li>High bias: Simple seasonal averages (underfitting)</li>
+            <li>High variance: Complex gradient boosting (overfitting to weather noise)</li>
+            <li>Optimal: Regularized models with domain constraints</li>
+        </ul>
+
+        <h2>Q8: Feature Engineering for Time Series</h2>
+        <p>Create features for utility demand forecasting.</p>
+        <p><strong>Temporal Features:</strong></p>
+        <ul>
+            <li>Lag features: t-1, t-7, t-365 day consumption</li>
+            <li>Rolling statistics: 7, 30, 90-day means and std devs</li>
+            <li>Seasonal indicators: Month, week of year, holidays</li>
+        </ul>
+        <p><strong>External Features:</strong></p>
+        <ul>
+            <li>Weather: Temperature, rainfall, daylight hours</li>
+            <li>Economic: Regional unemployment, housing starts</li>
+        </ul>
+
+        <h2>Q9: Cross-Validation for Temporal Data</h2>
+        <p>Why standard k-fold CV fails for time series and what to use instead.</p>
+        <p><strong>Problem:</strong></p>
+        <ul>
+            <li>Random k-fold leaks future information into training</li>
+        </ul>
+        <p><strong>Solution:</strong></p>
+        <ul>
+            <li>Time Series Split: Expanding window validation</li>
+            <li>Walk-forward validation: Rolling origin</li>
+            <li>Blocked CV: Preserve temporal structure</li>
+        </ul>
+
+        <h2>Q10: When NOT to Use ML</h2>
+        <p>Business judgment scenarios where ML is inappropriate.</p>
+        <p><strong>Avoid ML When:</strong></p>
+        <ul>
+            <li>Sample size < 1000 (insufficient data)</li>
+            <li>Requirements for perfect explainability (use rules instead)</li>
+            <li>Problem can be solved with simple heuristics</li>
+            <li>Cost of false positives is extremely high</li>
+            <li>Regulatory constraints prohibit black-box models</li>
+        </ul>
+
+        <h2>Q11: Optimization Algorithms</h2>
+        <p>Apply optimization for resource allocation in utilities.</p>
+        <p><strong>Applications:</strong></p>
+        <ul>
+            <li>Crew scheduling: Minimize response times</li>
+            <li>Leakage detection routing: Traveling salesman variants</li>
+            <li>Pump scheduling: Minimize energy costs</li>
+        </ul>
+        <p><strong>Techniques:</strong></p>
+        <ul>
+            <li>Linear programming for convex problems</li>
+            <li>Genetic algorithms for complex constraints</li>
+        </ul>
+
+        <h2>Q12: Handling Concept Drift</h2>
+        <p>Detect and adapt to changing patterns in production models.</p>
+        <p><strong>Types of Drift:</strong></p>
+        <ul>
+            <li>Sudden: COVID-19 lockdowns, major infrastructure changes</li>
+            <li>Gradual: Climate change effects on demand patterns</li>
+            <li>Seasonal: Expected recurring changes</li>
+        </ul>
+        <p><strong>Mitigation:</strong></p>
+        <ul>
+            <li>Online learning: Continuous model updates</li>
+            <li>Ensemble methods: Combine multiple time-window models</li>
+        </ul>
+
+        <h2>Q13: End-to-End Prescriptive Analytics</h2>
+        <p>Design a complete system from prediction to action recommendation.</p>
+        <p><strong>System Components:</strong></p>
+        <ul>
+            <li>Predictive layer: Leakage probability scoring</li>
+            <li>Optimization layer: Prioritize inspections by expected value</li>
+            <li>Decision layer: Recommend specific actions with confidence</li>
+            <li>Feedback loop: Track outcomes to improve recommendations</li>
+        </ul>
+    </div>
+
+
+    <!-- Part V -->
+    <div class="section" id="part5">
+        <h1>Part V: Business Case Studies (13 Questions)</h1>
+
+        <h2>Q1: The GBP 5 Million Leakage Detection Investment</h2>
+        <p>Build a business case for AI-powered leakage detection with 8-12% reduction promise.</p>
+        <p><strong>Business Case Structure:</strong></p>
+        <ul>
+            <li>Problem: Current leakage rate, cost per ML, regulatory pressure</li>
+            <li>Solution: AI detection system with sensor network</li>
+            <li>Benefits: 8-12% leakage reduction = GBP 2-3M annual savings</li>
+            <li>Costs: GBP 5M implementation over 2 years</li>
+            <li>ROI: 3-year payback, NPV positive at 8% discount rate</li>
+            <li>Risks: Technology maturity, integration complexity</li>
+        </ul>
+
+        <h2>Q2: Defining KPIs for Customer Satisfaction</h2>
+        <p>Design metrics for a customer satisfaction initiative.</p>
+        <p><strong>Leading Indicators:</strong></p>
+        <ul>
+            <li>First contact resolution rate</li>
+            <li>Average speed of answer</li>
+            <li>Digital adoption rate</li>
+        </ul>
+        <p><strong>Lagging Indicators:</strong></p>
+        <ul>
+            <li>Net Promoter Score (NPS)</li>
+            <li>Customer effort score</li>
+            <li>Complaint volume and resolution time</li>
+        </ul>
+
+        <h2>Q3: ROI Calculation for Predictive Maintenance</h2>
+        <p>Calculate ROI for predictive maintenance program for pump stations.</p>
+        <p><strong>Calculation Framework:</strong></p>
+        <ul>
+            <li>Current state: Reactive maintenance costs, unplanned outage frequency</li>
+            <li>Investment: Sensors, analytics platform, training</li>
+            <li>Benefits: Reduced emergency repairs, extended asset life</li>
+            <li>Risk-adjusted: Apply probability weights to scenarios</li>
+        </ul>
+
+        <h2>Q4: Stakeholder Management Challenge</h2>
+        <p>Convince skeptical executives to adopt data-driven decision making.</p>
+        <p><strong>Strategy:</strong></p>
+        <ul>
+            <li>Start with quick wins: Low-risk, high-visibility projects</li>
+            <li>Speak their language: Translate technical metrics to business outcomes</li>
+            <li>Build trust: Transparent about limitations and uncertainties</li>
+            <li>Co-create: Involve skeptics in solution design</li>
+        </ul>
+
+        <h2>Q5: Regulatory Compliance Strategy</h2>
+        <p>Develop OFWAT PR24 compliance reporting strategy.</p>
+        <p><strong>Key Elements:</strong></p>
+        <ul>
+            <li>Understand requirements: Common Performance Commitments</li>
+            <li>Data governance: Audit trails, data lineage</li>
+            <li>Validation: Independent verification of metrics</li>
+            <li>Continuous improvement: Performance commitment delivery</li>
+        </ul>
+
+        <h2>Q6: Customer Segmentation Strategy</h2>
+        <p>Design segmentation for targeted customer interventions.</p>
+        <p><strong>Segmentation Dimensions:</strong></p>
+        <ul>
+            <li>Value: High/medium/low consumption and revenue</li>
+            <li>Behavior: Payment patterns, engagement level</li>
+            <li>Risk: Churn probability, credit risk</li>
+            <li>Needs: Digital preference, service requirements</li>
+        </ul>
+
+        <h2>Q7: Project Prioritization Framework</h2>
+        <p>Prioritize multiple competing data projects with limited resources.</p>
+        <p><strong>Framework:</strong></p>
+        <ul>
+            <li>Value: Expected business impact (revenue, cost savings)</li>
+            <li>Effort: Implementation complexity and timeline</li>
+            <li>Strategic alignment: Fit with organizational priorities</li>
+            <li>Risk: Technical and business risk assessment</li>
+            <li>Dependencies: Prerequisites and blocker analysis</li>
+        </ul>
+
+        <h2>Q8: Change Management for Dashboard Adoption</h2>
+        <p>Drive adoption of new dashboards across the organization.</p>
+        <p><strong>ADKAR Framework:</strong></p>
+        <ul>
+            <li>Awareness: Communicate why change is needed</li>
+            <li>Desire: Build motivation through WIIFM (What's In It For Me)</li>
+            <li>Knowledge: Training on new tools and processes</li>
+            <li>Ability: Hands-on practice with support</li>
+            <li>Reinforcement: Celebrate wins, address resistance</li>
+        </ul>
+
+        <h2>Q9: Ethical Dilemma - Uncomfortable Truth</h2>
+        <p>Data reveals a service quality problem. How do you handle it?</p>
+        <p><strong>Response Framework:</strong></p>
+        <ul>
+            <li>Verify: Confirm findings with multiple data sources</li>
+            <li>Contextualize: Understand root causes and scope</li>
+            <li>Escalate: Inform appropriate leadership with recommendations</li>
+            <li>Act: Develop remediation plan with clear timeline</li>
+            <li>Communicate: Transparent with affected customers</li>
+        </ul>
+
+        <h2>Q10: Resource Allocation Dilemma</h2>
+        <p>Limited budget, multiple opportunities - how do you decide?</p>
+        <p><strong>Decision Criteria:</strong></p>
+        <ul>
+            <li>Quick wins: Immediate value with low effort</li>
+            <li>Strategic bets: High value, high risk, long-term</li>
+            <li>Foundation: Capabilities needed for future projects</li>
+            <li>Portfolio balance: Mix of risk profiles and timelines</li>
+        </ul>
+
+        <h2>Q11: Measuring Impact of Prescriptive Analytics</h2>
+        <p>How do you measure the business impact of prescriptive analytics?</p>
+        <p><strong>Measurement Approach:</strong></p>
+        <ul>
+            <li>Baseline: Establish pre-implementation performance</li>
+            <li>Counterfactual: Estimate what would have happened without intervention</li>
+            <li>Attribution: Isolate analytics contribution from other factors</li>
+            <li>Longitudinal: Track impact over time</li>
+        </ul>
+
+        <h2>Q12: Conflicting Requirements Navigation</h2>
+        <p>Different departments want opposite things from the same data project.</p>
+        <p><strong>Resolution Strategy:</strong></p>
+        <ul>
+            <li>Understand: Deep dive into each department's needs</li>
+            <li>Find common ground: Identify shared objectives</li>
+            <li>Prioritize: Use objective criteria for trade-offs</li>
+            <li>Iterate: Phased delivery addressing both needs over time</li>
+        </ul>
+
+        <h2>Q13: The 90-Day CEO Challenge</h2>
+        <p>Show measurable data science value in first 90 days.</p>
+        <p><strong>90-Day Plan:</strong></p>
+        <ul>
+            <li>Days 1-30: Quick wins - automate existing reports, fix data quality issues</li>
+            <li>Days 31-60: Deliver first insights - customer segmentation, anomaly detection</li>
+            <li>Days 61-90: Show measurable impact - cost savings, efficiency gains</li>
+        </ul>
+    </div>
+
+    <!-- Part VI -->
+    <div class="section" id="part6">
+        <h1>Part VI: Data Architecture (12 Questions)</h1>
+
+        <h2>Q1: Medallion Architecture for Water Utility</h2>
+        <p>Design a modern data platform using medallion architecture.</p>
+        <p><strong>Architecture Layers:</strong></p>
+        <ul>
+            <li>Bronze: Raw ingestion from 15M daily meter readings via Event Hubs</li>
+            <li>Silver: Cleansed, conformed data with quality checks</li>
+            <li>Gold: Business-ready aggregates, customer 360, OFWAT reporting</li>
+        </ul>
+
+        <h2>Q2: ETL vs ELT Decision Framework</h2>
+        <p>When to use ETL vs ELT for different use cases.</p>
+        <table>
+            <tr><th>Factor</th><th>ETL</th><th>ELT</th></tr>
+            <tr><td>Data Volume</td><td>Small-Medium</td><td>Large</td></tr>
+            <tr><td>Transformation Complexity</td><td>Complex</td><td>Simple-Moderate</td></tr>
+            <tr><td>Target System</td><td>Traditional DW</td><td>Cloud Data Lake</td></tr>
+            <tr><td>Use Case</td><td>Regulatory reporting</td><td>Exploratory analytics</td></tr>
+        </table>
+
+        <h2>Q3: Data Quality Framework</h2>
+        <p>Design comprehensive data quality monitoring.</p>
+        <p><strong>Dimensions:</strong></p>
+        <ul>
+            <li>Completeness: Missing value rates</li>
+            <li>Accuracy: Validation against reference data</li>
+            <li>Consistency: Cross-system reconciliation</li>
+            <li>Timeliness: Data freshness SLAs</li>
+            <li>Validity: Format and range checks</li>
+        </ul>
+
+        <h2>Q4: GDPR Compliance Architecture</h2>
+        <p>Implement data lineage and audit trails for GDPR compliance.</p>
+        <p><strong>Components:</strong></p>
+        <ul>
+            <li>Data catalog: Automated discovery and classification</li>
+            <li>Lineage tracking: End-to-end data flow visualization</li>
+            <li>Access logging: Who accessed what when</li>
+            <li>Retention policies: Automated data lifecycle management</li>
+        </ul>
+
+        <h2>Q5: Real-Time vs Batch Processing</h2>
+        <p>Design for smart meter data processing at scale.</p>
+        <p><strong>Current State:</strong> 500K meters, quarterly reads</p>
+        <p><strong>Target State:</strong> 2M meters, daily reads (8x volume increase)</p>
+        <p><strong>Future State:</strong> 15-min intervals = 8,760x volume increase</p>
+        <p><strong>Solution:</strong> Lambda architecture with batch and speed layers</p>
+
+        <h2>Q6: Azure Data Factory Pipeline Design</h2>
+        <p>Orchestrate complex data workflows with ADF.</p>
+        <p><strong>Pipeline Components:</strong></p>
+        <ul>
+            <li>Triggers: Schedule, event-based, tumbling window</li>
+            <li>Activities: Copy, transform, stored procedure, Databricks</li>
+            <li>Control flow: If conditions, loops, switches</li>
+            <li>Monitoring: Alerting on failures and SLA breaches</li>
+        </ul>
+
+        <h2>Q7: Slowly Changing Dimensions</h2>
+        <p>Handle changing customer attributes in the data warehouse.</p>
+        <p><strong>SCD Types:</strong></p>
+        <ul>
+            <li>Type 0: Fixed, never changes</li>
+            <li>Type 1: Overwrite (no history)</li>
+            <li>Type 2: Add new row with effective dates</li>
+            <li>Type 3: Add previous value column</li>
+        </ul>
+
+        <h2>Q8: Data Governance Framework</h2>
+        <p>Establish enterprise data governance for utilities.</p>
+        <p><strong>Governance Pillars:</strong></p>
+        <ul>
+            <li>Data ownership: Clear accountability for each dataset</li>
+            <li>Data quality: Standards and monitoring</li>
+            <li>Metadata management: Business and technical definitions</li>
+            <li>Security and privacy: Access controls and compliance</li>
+        </ul>
+
+        <h2>Q9: Scaling Challenges</h2>
+        <p>Handle growth from thousands to millions of smart meters.</p>
+        <p><strong>Scaling Strategies:</strong></p>
+        <ul>
+            <li>Horizontal partitioning: Shard by customer or geography</li>
+            <li>Time-based partitioning: Partition by date for efficient queries</li>
+            <li>Caching: Hot data in memory, cold in object storage</li>
+            <li>Compression: Columnar formats (Parquet) for analytics</li>
+        </ul>
+
+        <h2>Q10: Integration Architecture</h2>
+        <p>Connect operational systems to analytics platform.</p>
+        <p><strong>Integration Patterns:</strong></p>
+        <ul>
+            <li>CDC (Change Data Capture): Real-time replication</li>
+            <li>API-based: REST/GraphQL for modern systems</li>
+            <li>File-based: SFTP for legacy systems</li>
+            <li>Message queues: Event-driven async integration</li>
+        </ul>
+
+        <h2>Q11: Disaster Recovery</h2>
+        <p>Ensure business continuity for data platforms.</p>
+        <p><strong>DR Strategies:</strong></p>
+        <ul>
+            <li>Backup: Regular snapshots with point-in-time recovery</li>
+            <li>Replication: Geo-redundant storage</li>
+            <li>Failover: Automated or manual DR site activation</li>
+            <li>RTO/RPO: Define recovery time and point objectives</li>
+        </ul>
+
+        <h2>Q12: Cost Optimization</h2>
+        <p>Optimize cloud data platform costs.</p>
+        <p><strong>Optimization Strategies:</strong></p>
+        <ul>
+            <li>Right-sizing: Match compute to workload</li>
+            <li>Reserved capacity: Pre-purchase for predictable workloads</li>
+            <li>Auto-pause: Stop dev/test environments overnight</li>
+            <li>Storage tiers: Hot, cool, archive based on access patterns</li>
+        </ul>
+    </div>
+
+    <!-- Part VII -->
+    <div class="section" id="part7">
+        <h1>Part VII: Python Programming (12 Questions)</h1>
+
+        <h2>Q1: Complex Pandas Operations</h2>
+        <p>Multi-index operations and performance optimization.</p>
+        <pre>import pandas as pd
+import numpy as np
+
+# Multi-index time series
+df = df.set_index(['customer_id', 'reading_date'])
+
+# Vectorized rolling statistics
+df['rolling_mean_7d'] = df.groupby('customer_id')['consumption']
+    .transform(lambda x: x.rolling(7, min_periods=1).mean())
+
+# Avoid iteration - use vectorization
+# BAD: for row in df.itertuples(): ...
+# GOOD: df['new_col'] = df['col1'] * df['col2']</pre>
+
+        <h2>Q2: Data Cleaning Pipeline</h2>
+        <p>Handle messy utility meter data with missing values and outliers.</p>
+        <pre>def clean_meter_data(df):
+    # Remove duplicates
+    df = df.drop_duplicates(subset=['meter_id', 'reading_date'])
+    
+    # Handle negative consumption
+    df.loc[df['consumption'] < 0, 'consumption'] = np.nan
+    
+    # Outlier detection using IQR
+    Q1 = df['consumption'].quantile(0.25)
+    Q3 = df['consumption'].quantile(0.75)
+    IQR = Q3 - Q1
+    outlier_mask = (df['consumption'] < Q1 - 1.5*IQR) | (df['consumption'] > Q3 + 1.5*IQR)
+    df.loc[outlier_mask, 'consumption'] = np.nan
+    
+    return df</pre>
+
+        <h2>Q3: Configurable ETL Pipeline</h2>
+        <p>Build production-ready ETL with error handling and logging.</p>
+        <pre>import logging
+from dataclasses import dataclass
+
+@dataclass
+class ETLConfig:
+    source_path: str
+    destination_table: str
+    batch_size: int = 10000
+
+class ETLPipeline:
+    def __init__(self, config: ETLConfig):
+        self.config = config
+        self.logger = logging.getLogger(__name__)
+    
+    def run(self):
+        try:
+            self.logger.info(f'Starting ETL: {self.config.source_path}')
+            data = self.extract()
+            transformed = self.transform(data)
+            self.load(transformed)
+        except Exception as e:
+            self.logger.error(f'ETL failed: {e}')
+            raise</pre>
+
+        <h2>Q4: Memory-Efficient Processing</h2>
+        <p>Process millions of readings without loading everything into memory.</p>
+        <pre># Chunked processing
+chunk_size = 100000
+for chunk in pd.read_csv('meter_readings.csv', chunksize=chunk_size):
+    process_chunk(chunk)
+
+# Use categorical types for low-cardinality columns
+df['customer_type'] = df['customer_type'].astype('category')
+
+# Downcast numeric types
+df['consumption'] = pd.to_numeric(df['consumption'], downcast='float')</pre>
+
+        <h2>Q5: FastAPI for Data Services</h2>
+        <p>Design REST API for meter data queries.</p>
+        <pre>from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+app = FastAPI()
+
+@app.get('/meters/{meter_id}/readings')
+async def get_readings(meter_id: str, start_date: str, end_date: str, limit: int = 1000):
+    readings = query_database(meter_id, start_date, end_date, limit)
+    if not readings:
+        raise HTTPException(status_code=404, detail='No readings found')
+    return {'meter_id': meter_id, 'readings': readings}</pre>
+
+        <h2>Q6: Automated Report Generation</h2>
+        <p>Generate formatted reports with visualizations.</p>
+        <pre>from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill
+
+def generate_monthly_report(data, output_path):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Monthly Summary'
+    
+    # Header styling
+    header_fill = PatternFill(start_color='366092', end_color='366092', fill_type='solid')
+    for col, header in enumerate(['Customer', 'Consumption', 'Cost'], 1):
+        cell = ws.cell(row=1, column=col, value=header)
+        cell.font = Font(bold=True, color='FFFFFF')
+        cell.fill = header_fill
+    
+    wb.save(output_path)</pre>
+
+        <h2>Q7: Feature Engineering</h2>
+        <p>Create time-series features for ML models.</p>
+        <pre>def create_time_features(df, datetime_col):
+    df['hour'] = df[datetime_col].dt.hour
+    df['day_of_week'] = df[datetime_col].dt.dayofweek
+    df['month'] = df[datetime_col].dt.month
+    df['is_weekend'] = df['day_of_week'].isin([5, 6]).astype(int)
+    df['is_holiday'] = df[datetime_col].isin(holiday_dates).astype(int)
+    
+    # Lag features
+    for lag in [1, 7, 30]:
+        df[f'consumption_lag_{lag}'] = df.groupby('customer_id')['consumption'].shift(lag)
+    
+    return df</pre>
+
+        <h2>Q8: Unit Testing and Validation</h2>
+        <p>Ensure production pipeline reliability.</p>
+        <pre>import pytest
+from pandera import DataFrameSchema, Column, Check
+
+# Define data contract
+schema = DataFrameSchema({
+    'customer_id': Column(str, nullable=False),
+    'consumption': Column(float, Check.greater_than_or_equal_to(0)),
+    'reading_date': Column('datetime64[ns]', nullable=False)
+})
+
+def test_data_quality(df):
+    validated = schema.validate(df)
+    assert len(validated) == len(df), 'Data validation failed'
+
+# Unit test
+def test_calculate_bill():
+    assert calculate_bill(100, 1.5) == 150.0</pre>
+
+        <h2>Q9: Parallel Processing</h2>
+        <p>Speed up data transformation with multiprocessing.</p>
+        <pre>from multiprocessing import Pool
+
+def process_customer(customer_data):
+    # Transform single customer data
+    return transform(customer_data)
+
+if __name__ == '__main__':
+    customers = df.groupby('customer_id')
+    with Pool(processes=4) as pool:
+        results = pool.map(process_customer, customers)</pre>
+
+        <h2>Q10: Custom Anomaly Detection</h2>
+        <p>Implement statistical anomaly detection algorithm.</p>
+        <pre>class ZScoreAnomalyDetector:
+    def __init__(self, threshold=3):
+        self.threshold = threshold
+        self.mean = None
+        self.std = None
+    
+    def fit(self, data):
+        self.mean = np.mean(data)
+        self.std = np.std(data)
+        return self
+    
+    def predict(self, data):
+        z_scores = np.abs((data - self.mean) / self.std)
+        return z_scores > self.threshold</pre>
+
+        <h2>Q11: Pipeline Monitoring</h2>
+        <p>Add monitoring and alerting to data pipelines.</p>
+        <pre>from dataclasses import dataclass
+from datetime import datetime
+
+@dataclass
+class PipelineMetrics:
+    records_processed: int
+    processing_time: float
+    error_count: int
+    timestamp: datetime
+
+class PipelineMonitor:
+    def record_metrics(self, metrics: PipelineMetrics):
+        # Send to monitoring system
+        if metrics.error_count > 0:
+            self.send_alert(f'Pipeline errors: {metrics.error_count}')</pre>
+
+        <h2>Q12: Algorithm Challenge</h2>
+        <p>Efficiently match meter readings to billing periods.</p>
+        <pre>from bisect import bisect_right
+
+def match_readings_to_periods(readings, billing_periods):
+    period_starts = [p['start'] for p in billing_periods]
+    matches = []
+    
+    for reading in readings:
+        idx = bisect_right(period_starts, reading['date']) - 1
+        if idx >= 0:
+            matches.append({'reading': reading, 'period': billing_periods[idx]})
+    
+    return matches  # O(n log m) vs O(n*m) for naive approach</pre>
+    </div>
+
+
+    <!-- Part VIII -->
+    <div class="section" id="part8">
+        <h1>Part VIII: Behavioral & Leadership (12 Questions)</h1>
+
+        <h2>Q1: Customer Focus - Difficult Stakeholder</h2>
+        <p><strong>Question:</strong> Tell me about a time when you had to work with a senior stakeholder who fundamentally distrusted data-driven recommendations.</p>
+        <p><strong>What to Include:</strong></p>
+        <ul>
+            <li>Situation: Context and stakeholder's concerns</li>
+            <li>Action: How you built trust and communicated</li>
+            <li>Result: Outcome and relationship improvement</li>
+        </ul>
+        <p><strong>Red Flags to Avoid:</strong></p>
+        <ul>
+            <li>Blaming the stakeholder for being resistant to change</li>
+            <li>Claiming you converted them immediately</li>
+        </ul>
+
+        <h2>Q2: Making Things Happen - Tight Deadline</h2>
+        <p><strong>Question:</strong> Describe a time when you had to deliver under a tight deadline with incomplete data.</p>
+        <p><strong>STAR Framework:</strong></p>
+        <ul>
+            <li>Situation: Project constraints and timeline pressure</li>
+            <li>Task: What you needed to deliver</li>
+            <li>Action: How you scoped, prioritized, and executed</li>
+            <li>Result: What was delivered and lessons learned</li>
+        </ul>
+
+        <h2>Q3: Improving Service - Driving Change</h2>
+        <p><strong>Question:</strong> Tell me about a time you challenged an existing process and drove meaningful change.</p>
+        <p><strong>Key Elements:</strong></p>
+        <ul>
+            <li>Identify the problem with data/evidence</li>
+            <li>Build coalition for change</li>
+            <li>Pilot and demonstrate value</li>
+            <li>Scale successful approach</li>
+        </ul>
+
+        <h2>Q4: Accuracy & Decision Making - Unexpected Data</h2>
+        <p><strong>Question:</strong> Tell me about a time when data told you something unexpected or unwelcome.</p>
+        <p><strong>Strong Response:</strong></p>
+        <ul>
+            <li>Verified findings with multiple sources</li>
+            <li>Understood implications before communicating</li>
+            <li>Presented with context and recommendations</li>
+            <li>Led action to address the issue</li>
+        </ul>
+
+        <h2>Q5: Collaboration - Difficult Team Member</h2>
+        <p><strong>Question:</strong> Describe working with a difficult team member on a critical project.</p>
+        <p><strong>Approach:</strong></p>
+        <ul>
+            <li>Understand their perspective and concerns</li>
+            <li>Find common ground and shared goals</li>
+            <li>Establish clear communication norms</li>
+            <li>Focus on project success, not personal issues</li>
+        </ul>
+
+        <h2>Q6: Communication - Technical to Non-Technical</h2>
+        <p><strong>Question:</strong> Give an example of explaining a complex technical concept to a non-technical executive.</p>
+        <p><strong>Best Practices:</strong></p>
+        <ul>
+            <li>Use analogies relevant to their domain</li>
+            <li>Focus on business impact, not technical details</li>
+            <li>Visual aids and simple language</li>
+            <li>Check for understanding and invite questions</li>
+        </ul>
+
+        <h2>Q7: Developing Self - Rapid Learning</h2>
+        <p><strong>Question:</strong> Tell me about a time you had to learn a new skill quickly for a business need.</p>
+        <p><strong>What to Demonstrate:</strong></p>
+        <ul>
+            <li>Learning methodology and resources used</li>
+            <li>How you applied learning in practice</li>
+            <li>Outcome and continued development</li>
+        </ul>
+
+        <h2>Q8: Dependable - Taking Ownership</h2>
+        <p><strong>Question:</strong> Describe a time when something went wrong and you took ownership.</p>
+        <p><strong>Strong Response:</strong></p>
+        <ul>
+            <li>Acknowledged the issue without deflection</li>
+            <li>Analyzed root cause systematically</li>
+            <li>Implemented fix and preventive measures</li>
+            <li>Communicated transparently with stakeholders</li>
+        </ul>
+
+        <h2>Q9: Knowledgeable - Admitting Limitations</h2>
+        <p><strong>Question:</strong> Tell me about a time you did not know something and how you handled it.</p>
+        <p><strong>Good Answer Shows:</strong></p>
+        <ul>
+            <li>Intellectual honesty and humility</li>
+            <li>Resourcefulness in finding answers</li>
+            <li>Knowing when to ask for help</li>
+            <li>Learning from the experience</li>
+        </ul>
+
+        <h2>Q10: Progressive - Challenging Tradition</h2>
+        <p><strong>Question:</strong> Give an example of challenging a traditional approach with an innovative solution.</p>
+        <p><strong>Structure:</strong></p>
+        <ul>
+            <li>Traditional approach and its limitations</li>
+            <li>Your innovative alternative</li>
+            <li>How you gained buy-in</li>
+            <li>Results and adoption</li>
+        </ul>
+
+        <h2>Q11: Leadership Without Authority</h2>
+        <p><strong>Question:</strong> Describe a time you influenced a decision you did not own.</p>
+        <p><strong>Key Techniques:</strong></p>
+        <ul>
+            <li>Build credibility through expertise</li>
+            <li>Understand decision-maker's priorities</li>
+            <li>Present data-driven recommendations</li>
+            <li>Find allies and build consensus</li>
+        </ul>
+
+        <h2>Q12: Ethical Dilemma - Privacy vs Value</h2>
+        <p><strong>Question:</strong> The Sales Director wants to use behavioral data customers did not consent to for retention marketing. What do you do?</p>
+        <p><strong>Response Framework:</strong></p>
+        <ul>
+            <li>Understand the request and business rationale</li>
+            <li>Explain GDPR/legal requirements clearly</li>
+            <li>Propose compliant alternatives</li>
+            <li>Escalate if pressure continues</li>
+            <li>Document the decision process</li>
+        </ul>
+    </div>
+
+    <!-- Part IX -->
+    <div class="section" id="part9">
+        <h1>Part IX: Ambiguous Pressure Tests (12 Questions)</h1>
+
+        <h2>Q1: The CEO's Ambush</h2>
+        <p><strong>Scenario:</strong> "Our customer churn is increasing. I need to know why by end of day." - CEO walks away. No data access yet.</p>
+        <p><strong>Clarifying Questions to Ask:</strong></p>
+        <ul>
+            <li>What time period are we analyzing?</li>
+            <li>How is churn defined? (cancellation, non-payment, etc.)</li>
+            <li>What data sources are available?</li>
+            <li>What hypotheses should we test first?</li>
+        </ul>
+        <p><strong>Approach:</strong></p>
+        <ul>
+            <li>Acknowledge urgency while setting realistic expectations</li>
+            <li>Prioritize: Quick data pull vs. deep analysis</li>
+            <li>Deliver preliminary findings with confidence intervals</li>
+        </ul>
+
+        <h2>Q2: Mystery Dataset</h2>
+        <p><strong>Scenario:</strong> You're given a dataset with no documentation. What do you do?</p>
+        <p><strong>Systematic Approach:</strong></p>
+        <ul>
+            <li>Profile: Row counts, column types, missing values</li>
+            <li>Explore: Distributions, correlations, outliers</li>
+            <li>Validate: Check against known reference data</li>
+            <li>Document: Create data dictionary as you discover</li>
+        </ul>
+
+        <h2>Q3: Conflicting Executives</h2>
+        <p><strong>Scenario:</strong> Two executives want opposite things based on the same data.</p>
+        <p><strong>Navigation Strategy:</strong></p>
+        <ul>
+            <li>Understand both perspectives fully</li>
+            <li>Identify where interpretations differ</li>
+            <li>Present analysis showing both viewpoints</li>
+            <li>Facilitate data-driven discussion</li>
+        </ul>
+
+        <h2>Q4: Vague Directive</h2>
+        <p><strong>Scenario:</strong> "Fix our data quality issues" - no specifics given.</p>
+        <p><strong>Response:</strong></p>
+        <ul>
+            <li>Define scope: Which systems, data domains, timeframes?</li>
+            <li>Assess current state: Data quality audit</li>
+            <li>Prioritize: Impact vs. effort matrix</li>
+            <li>Propose phased approach with quick wins</li>
+        </ul>
+
+        <h2>Q5: Model Bias Crisis</h2>
+        <p><strong>Scenario:</strong> A model you deployed is showing unexpected bias. Handle the crisis.</p>
+        <p><strong>Crisis Response:</strong></p>
+        <ul>
+            <li>Immediate: Assess severity and potential impact</li>
+            <li>Contain: Disable or limit model if necessary</li>
+            <li>Investigate: Root cause analysis</li>
+            <li>Communicate: Transparent with stakeholders</li>
+            <li>Remediate: Fix and revalidate</li>
+        </ul>
+
+        <h2>Q6: Ethical Pressure</h2>
+        <p><strong>Scenario:</strong> "Make the data tell the story we want" - ethical tension.</p>
+        <p><strong>Response:</strong></p>
+        <ul>
+            <li>Clarify: Understand what they are really asking</li>
+            <li>Educate: Explain data integrity principles</li>
+            <li>Alternative: Propose honest framing that supports goals</li>
+            <li>Escalate: If unethical pressure continues</li>
+        </ul>
+
+        <h2>Q7: Compressed Timeline</h2>
+        <p><strong>Scenario:</strong> Project deadline cut in half. How do you deliver value?</p>
+        <p><strong>Approach:</strong></p>
+        <ul>
+            <li>Re-scope: Identify MVP vs. nice-to-have</li>
+            <li>Prioritize: Highest impact deliverables first</li>
+            <li>Communicate: Set expectations on what is feasible</li>
+            <li>Iterate: Deliver incrementally</li>
+        </ul>
+
+        <h2>Q8: Algorithm Skepticism</h2>
+        <p><strong>Scenario:</strong> Stakeholder dismisses your analysis: "I do not trust algorithms."</p>
+        <p><strong>Response:</strong></p>
+        <ul>
+            <li>Acknowledge: Validate their concern</li>
+            <li>Explain: Show how the algorithm works simply</li>
+            <li>Demonstrate: Compare to their intuition</li>
+            <li>Build trust: Start with smaller decisions</li>
+        </ul>
+
+        <h2>Q9: Sensitive Discovery</h2>
+        <p><strong>Scenario:</strong> Data reveals a problem that will cause panic if widely known.</p>
+        <p><strong>Handling:</strong></p>
+        <ul>
+            <li>Verify: Confirm findings are accurate</li>
+            <li>Escalate: Inform appropriate leadership</li>
+            <li>Recommend: Propose measured response</li>
+            <li>Support: Help develop communication strategy</li>
+        </ul>
+
+        <h2>Q10: Impossible Request</h2>
+        <p><strong>Scenario:</strong> Asked to build something you know is technically infeasible.</p>
+        <p><strong>Response:</strong></p>
+        <ul>
+            <li>Explain constraints clearly</li>
+            <li>Propose alternative approaches</li>
+            <li>Show trade-offs of different options</li>
+            <li>Collaborate on feasible solution</li>
+        </ul>
+
+        <h2>Q11: Resource Constraints</h2>
+        <p><strong>Scenario:</strong> Multiple stakeholders, conflicting priorities, limited resources.</p>
+        <p><strong>Decision Framework:</strong></p>
+        <ul>
+            <li>Map all requests to business value</li>
+            <li>Assess dependencies and blockers</li>
+            <li>Facilitate prioritization workshop</li>
+            <li>Produce transparent prioritization matrix</li>
+        </ul>
+
+        <h2>Q12: The Unanswerable</h2>
+        <p><strong>Scenario:</strong> "How much revenue will we lose if there is a major water quality incident next year?" - No historical data.</p>
+        <p><strong>Approach:</strong></p>
+        <ul>
+            <li>Acknowledge uncertainty</li>
+            <li>Use analogies: Similar incidents in other utilities</li>
+            <li>Scenario planning: Best/worst/most likely cases</li>
+            <li>Range estimate with confidence intervals</li>
+            <li>Identify data to collect for better future estimates</li>
+        </ul>
+
+        <h2>Final Notes</h2>
+        <p>Remember: These questions are designed to test not just technical knowledge, but also business acumen, communication skills, and grace under pressure. Practice your responses using the STAR method for behavioral questions, and always be prepared to explain your reasoning process for technical questions.</p>
+        <p>Good luck with your Business Stream Data Scientist interview!</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ]
+                });
+            }
+        });
+    </script>
+</body>
+</html>
